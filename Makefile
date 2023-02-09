@@ -1,13 +1,17 @@
 CC=gcc
-CFLAGS=-std=c99 -Wall -Wextra -Wpedantic
+CFLAGS=-std=c99 -Wall -Wextra -Wpedantic -g
 TARGET=dinesh
+SRC=dinesh.c
+OBJ=dinesh.o
 SRCDIR=src
-SOURCES=$(SRCDIR)/dinesh.c
 
 all: $(TARGET)
 
-$(TARGET): $(SOURCES)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES)
+$(TARGET): $(SRCDIR)/$(OBJ)
+	$(CC) $^ -o $@
+
+$(SRCDIR)/$(OBJ): $(SRCDIR)/$(SRC)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(TARGET)
+	rm -rf $(SRCDIR)/$(OBJ) $(TARGET)
